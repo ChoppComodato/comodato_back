@@ -1,6 +1,7 @@
 # Agregar AQUI archivos repoless
-*.vscode/
 
+.github/
+.vscode/
 
 
 # Byte-compiled / optimized / DLL files
