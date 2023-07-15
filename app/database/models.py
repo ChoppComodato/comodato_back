@@ -10,7 +10,7 @@ from typing import List
 class Cliente(Base):
     __tablename__ = "clientes"
     id = Column(Integer, primary_key=True, nullable=False)
-    dni = Column(Integer, primary_key=True, nullable=False)
+    dni = Column(Integer, nullable=False, unique=True)
     nombre = Column(String, nullable=False)
     apellido = Column(String, nullable=False)
     direccion = Column(String, nullable=False)
