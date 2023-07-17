@@ -1,9 +1,8 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, ARRAY, Date
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Date
 from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 from sqlalchemy.orm import relationship
 from .database import Base
-from typing import List
 
 
 class Cliente(Base):
@@ -19,20 +18,19 @@ class Cliente(Base):
     email = Column(String, nullable=False)
     vehiculo = Column(String, nullable=False)
     patente = Column(String(8), nullable=False)
-
     fecha_cumple = Column(Date, nullable=True)
     fecha_registro = Column(TIMESTAMP(timezone=True),
                             nullable=False, server_default=text('now()'))
+
+    comodatos = relationship("Comodato", back_populates="cliente")
+    recibos = relationship("Recibo", back_populates="cliente")
 
 
 class Comodato(Base):
     __tablename__ = "comodatos"
     id = Column(Integer, primary_key=True, nullable=False)
     cliente_id = Column(Integer, ForeignKey("clientes.id"))
-    cliente = relationship("Cliente", back_populates="comodatos")
-    # a partir de las 00:00:00 del día actual
     fecha_comodato = Column(Date, nullable=False)
-    # hasta las 23:59:59 del día pasado mañana
     fecha_devolucion = Column(Date, nullable=False)
     fecha_registro = Column(TIMESTAMP(timezone=True),
                             nullable=False, server_default=text('now()'))
@@ -52,19 +50,19 @@ class Comodato(Base):
     adicionales = Column(String, nullable=True)
     observaciones = Column(String, nullable=True)
 
-
-Cliente.comodatos = relationship(
-    "Comodato", order_by=Comodato.id, back_populates="cliente")
+    cliente = relationship("Cliente", back_populates="comodatos")
+    recibos = relationship("Recibo", back_populates="comodato")
 
 
 class Recibo(Base):
     __tablename__ = "recibos"
     id = Column(Integer, primary_key=True, nullable=False)
     comodato_id = Column(Integer, ForeignKey("comodatos.id"))
-    comodato = relationship("Comodato", back_populates="recibos")
     cliente_id = Column(Integer, ForeignKey("clientes.id"))
-    cliente = relationship("Cliente", back_populates="recibos")
     monto_recibo = Column(Integer, nullable=False)
     estado = Column(Boolean, nullable=False, default=True)
     fecha_registro = Column(TIMESTAMP(timezone=True),
                             nullable=False, server_default=text('now()'))
+
+    cliente = relationship("Cliente", back_populates="recibos")
+    comodato = relationship("Comodato", back_populates="recibos")
