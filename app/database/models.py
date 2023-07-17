@@ -4,7 +4,6 @@ from sqlalchemy.sql.sqltypes import TIMESTAMP
 from sqlalchemy.orm import relationship
 from .database import Base
 
-
 class Cliente(Base):
     __tablename__ = "clientes"
     id = Column(Integer, primary_key=True, nullable=False)
@@ -26,11 +25,14 @@ class Cliente(Base):
     recibos = relationship("Recibo", back_populates="cliente")
 
 
+
 class Comodato(Base):
     __tablename__ = "comodatos"
     id = Column(Integer, primary_key=True, nullable=False)
     cliente_id = Column(Integer, ForeignKey("clientes.id"))
+    # a partir de las 00:00:00 del día actual
     fecha_comodato = Column(Date, nullable=False)
+    # hasta las 23:59:59 del día pasado mañana
     fecha_devolucion = Column(Date, nullable=False)
     fecha_registro = Column(TIMESTAMP(timezone=True),
                             nullable=False, server_default=text('now()'))
@@ -50,8 +52,10 @@ class Comodato(Base):
     adicionales = Column(String, nullable=True)
     observaciones = Column(String, nullable=True)
 
+
     cliente = relationship("Cliente", back_populates="comodatos")
     recibos = relationship("Recibo", back_populates="comodato")
+
 
 
 class Recibo(Base):
@@ -63,6 +67,6 @@ class Recibo(Base):
     estado = Column(Boolean, nullable=False, default=True)
     fecha_registro = Column(TIMESTAMP(timezone=True),
                             nullable=False, server_default=text('now()'))
-
     cliente = relationship("Cliente", back_populates="recibos")
     comodato = relationship("Comodato", back_populates="recibos")
+
