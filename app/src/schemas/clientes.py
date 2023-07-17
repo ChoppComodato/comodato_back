@@ -13,7 +13,7 @@ class ClienteCreate(BaseModel):
     telefono: constr(pattern=r'^\+?\d{0,3}\d{0,5}-?\d{0,10}$')
     email: EmailStr
     vehiculo: str
-    patente: constr(pattern=r'^[a-zA-Z]{3}\d{3}$')
+    patente: constr(pattern=r'^[a-zA-Z]{3}\d{3}$')#chequear patrón para patentes nuevas
     fecha_cumple: Optional[str] = None
 
 
