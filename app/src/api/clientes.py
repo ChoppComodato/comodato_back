@@ -11,7 +11,7 @@ router = APIRouter(
 )
 
 
-# Create
+# Create - OK
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=Cliente)
 async def create_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
@@ -23,7 +23,7 @@ async def create_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
     return cliente_nuevo
 
 
-# Read all
+# Read all - OK
 
 @router.get("/", response_model=List[ClienteOut])
 def get_clientes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
@@ -32,7 +32,7 @@ def get_clientes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db))
     return clientes
 
 
-# Read one
+# Read one - OK - TODO: usar el DNI para hacer el search
 
 @router.get("/{cliente_id}", response_model=ClienteOut)
 def read_cliente(cliente_id: int, db: Session = Depends(get_db)):
