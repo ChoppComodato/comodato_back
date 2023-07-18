@@ -31,7 +31,8 @@ class ClienteUpdate(BaseModel):
     fecha_cumple: Optional[str]
 
 
-class ClienteOut(BaseModel):
+class Cliente(BaseModel):
+    "Modelo de response para datos replicados de la base de datos"
     model_config = ConfigDict(from_attributes=True)
 
     id: int
@@ -47,3 +48,21 @@ class ClienteOut(BaseModel):
     patente: str
     fecha_cumple: datetime
     fecha_registro: datetime
+
+
+class ClienteOut(BaseModel):
+    "Modelo de response de datos formato para la interface"
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    dni: int
+    nombre: str
+    apellido: str
+    direccion: str
+    barrio: str
+    localidad: str
+    telefono: str
+    email: str
+    vehiculo: str
+    patente: str
+    fecha_cumple: str
