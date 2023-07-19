@@ -21,7 +21,8 @@ async def create_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(cliente_nuevo)
 
-    cliente_nuevo.fecha_cumple = cliente_nuevo.fecha_cumple.strftime("%d/%m/%Y")
+    cliente_nuevo.fecha_cumple = cliente_nuevo.fecha_cumple.strftime(
+        "%d/%m/%Y")
     return cliente_nuevo
 
 
