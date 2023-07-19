@@ -13,19 +13,21 @@ router = APIRouter(
 
 # Create
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=Cliente)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=ClienteOut)
 async def create_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
     cliente_nuevo = models.Cliente(**cliente.model_dump())
 
     db.add(cliente_nuevo)
     db.commit()
     db.refresh(cliente_nuevo)
+
+    cliente_nuevo.fecha_cumple = cliente_nuevo.fecha_cumple.strftime("%d/%m/%Y")
     return cliente_nuevo
 
 
 # Read all
 
-@router.get("/", response_model=List[ClienteOut])
+@router.get("/", response_model=List[Cliente])
 async def get_clientes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
     clientes = db.query(models.Cliente).offset(skip).limit(limit).all()
