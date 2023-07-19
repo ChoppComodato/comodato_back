@@ -13,7 +13,7 @@ class Cliente(Base):
     direccion = Column(String, nullable=False)
     barrio = Column(String, nullable=False)
     localidad = Column(String, nullable=False)
-    telefono = Column(String, nullable=False, unique=True)
+    telefono = Column(String, nullable=False)
     email = Column(String, nullable=False)
     vehiculo = Column(String, nullable=False)
     patente = Column(String(8), nullable=False)
