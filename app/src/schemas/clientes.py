@@ -3,6 +3,9 @@ from typing import Optional
 from datetime import datetime
 
 
+regex_telefono = r'^(\+?\d{0,3}-?)?\d{0,5}-?\d{0,10}$' # Ej: +54-351-5847755 | 3515847755 | 351-5847755
+regex_patente = r'^[a-zA-Z0-9]{6,8}$' # Ej: AA123BB | ABC123
+
 class ClienteCreate(BaseModel):
     dni: conint(gt=1000000, le=99999999)
     nombre: str
@@ -10,10 +13,10 @@ class ClienteCreate(BaseModel):
     direccion: str
     barrio: str
     localidad: str
-    telefono: constr(pattern=r'^\+?\d{0,3}\d{0,5}-?\d{0,10}$')
+    telefono: constr(pattern=regex_telefono)
     email: EmailStr
     vehiculo: str
-    patente: constr(pattern=r'^[a-zA-Z]{3}\d{3}$')#chequear patrón para patentes nuevas
+    patente: constr(pattern=regex_patente)
     fecha_cumple: Optional[str] = None
 
 
@@ -24,15 +27,15 @@ class ClienteUpdate(BaseModel):
     direccion: Optional[str]
     barrio: Optional[str]
     localidad: Optional[str]
-    telefono: Optional[constr(pattern=(r'^\+?\d{0,3}\d{0,5}-?\d{0,10}$'))]
+    telefono: Optional[constr(pattern=regex_telefono)]
     email: Optional[EmailStr]
     vehiculo: Optional[str]
-    patente: Optional[constr(pattern=(r'^[a-zA-Z]{3}\d{3}$'))]
+    patente: Optional[constr(pattern=regex_patente)]
     fecha_cumple: Optional[str]
 
 
 class Cliente(BaseModel):
-    "Modelo de response para datos replicados de la base de datos"
+    "Modelo de response para tipo de datos replicados de la base de datos"
     model_config = ConfigDict(from_attributes=True)
 
     id: int
@@ -51,7 +54,7 @@ class Cliente(BaseModel):
 
 
 class ClienteOut(BaseModel):
-    "Modelo de response de datos formato para la interface"
+    "Modelo de response para tipo de datos formato para la interface"
     model_config = ConfigDict(from_attributes=True)
 
     id: int
