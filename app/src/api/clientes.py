@@ -44,7 +44,6 @@ async def read_cliente(cliente_id: int, db: Session = Depends(get_db)):
     if not db_cliente:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Cliente not found")
-    # transform db_cliente.fecha_cumple to string
     db_cliente.fecha_cumple = db_cliente.fecha_cumple.strftime("%d/%m/%Y")
     return db_cliente
 
