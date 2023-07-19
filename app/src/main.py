@@ -1,6 +1,6 @@
 from typing import List
 from fastapi import Depends, FastAPI, HTTPException, status
-
+from fastapi.middleware.cors import CORSMiddleware
 from typing_extensions import Annotated
 from sqlalchemy.orm import Session
 from ..utils import config
@@ -14,7 +14,19 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 app.include_router(clientes.router)
+
 
 @app.get("/")
 async def root():

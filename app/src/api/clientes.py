@@ -13,20 +13,23 @@ router = APIRouter(
 
 # Create
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=Cliente)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=ClienteOut)
 async def create_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
     cliente_nuevo = models.Cliente(**cliente.model_dump())
 
     db.add(cliente_nuevo)
     db.commit()
     db.refresh(cliente_nuevo)
+
+    cliente_nuevo.fecha_cumple = cliente_nuevo.fecha_cumple.strftime(
+        "%d/%m/%Y")
     return cliente_nuevo
 
 
 # Read all
 
-@router.get("/", response_model=List[ClienteOut])
-def get_clientes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+@router.get("/", response_model=List[Cliente])
+async def get_clientes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
     clientes = db.query(models.Cliente).offset(skip).limit(limit).all()
     return clientes
@@ -35,7 +38,7 @@ def get_clientes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db))
 # Read one - TODO: usar el DNI para hacer el search
 
 @router.get("/{cliente_id}", response_model=ClienteOut)
-def read_cliente(cliente_id: int, db: Session = Depends(get_db)):
+async def read_cliente(cliente_id: int, db: Session = Depends(get_db)):
     db_cliente = db.query(models.Cliente).filter(
         models.Cliente.id == cliente_id).first()
     if not db_cliente:
@@ -49,7 +52,7 @@ def read_cliente(cliente_id: int, db: Session = Depends(get_db)):
 # Update
 
 @router.put("/{cliente_id}", response_model=ClienteOut)
-def update_cliente(cliente_id: int, cliente_actualizado: ClienteUpdate, db: Session = Depends(get_db)):
+async def update_cliente(cliente_id: int, cliente_actualizado: ClienteUpdate, db: Session = Depends(get_db)):
     cliente = db.query(models.Cliente).filter(
         models.Cliente.id == cliente_id).first()
 
@@ -70,7 +73,7 @@ def update_cliente(cliente_id: int, cliente_actualizado: ClienteUpdate, db: Sess
 # Delete
 
 @router.delete("/{cliente_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_cliente(cliente_id: int, db: Session = Depends(get_db)):
+async def delete_cliente(cliente_id: int, db: Session = Depends(get_db)):
     db_cliente = db.query(models.Cliente).filter(
         models.Cliente.id == cliente_id)
     if not db_cliente.first():
