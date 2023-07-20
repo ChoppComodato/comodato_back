@@ -1,5 +1,6 @@
 from app.src.schemas import comodatos
 from app.database import models
+import json
 
 
 def test_create_comodato(client, body_comodato):
@@ -46,7 +47,6 @@ def test_read_all_comodatos(client):
 
 
 def test_get_one_comodato(client, session, body_comodato):
-
     test_comodato = models.Comodato(**body_comodato)
 
     session.add(test_comodato)
@@ -59,3 +59,56 @@ def test_get_one_comodato(client, session, body_comodato):
 
     # expected = comodatos.ComodatoOut(**test_comodato.__dict__)
     # assert response.json() == expected.model_dump()
+
+
+def test_update_comodato(client, session):
+    #  1) creamos un registro de comodato y lo actualizamos
+    test_comodato = models.Comodato(
+        barril_7_8_9_litros=1,
+        barril_10_12_litros=1
+    )
+
+    session.add(test_comodato)
+    session.commit()
+    session.refresh(test_comodato)
+
+    #  2) creamos un request body vacío para que el validador ingrese valores por default
+    request_body = {}
+
+    response = client.put(
+        f"/comodatos/{test_comodato.id}", json=request_body)
+
+    assert response.status_code == 200
+
+    #  3) una vez actualizado, recuperamos el registro
+    comodato_db = session.query(models.Comodato).filter(
+        models.Comodato.id == test_comodato.id).first()
+
+    #  4) mapeamos por el schema correspondiente los valores de la base de datos con los del response.json()
+    comodato_schema = comodatos.ComodatoOut(**comodato_db.__dict__)
+    comodato_output = comodatos.ComodatoOut(**response.json())
+
+    #  3) Comparamos ambos schemas
+    assert comodato_output == comodato_schema
+
+
+def test_delete_comodato(client, session, body_comodato):
+    # Create a new comodato in the database
+
+    comodato = models.Comodato(**body_comodato)
+    session.add(comodato)
+    session.commit()
+    session.refresh(comodato)
+
+    # Send a DELETE request to the /comodatos/{comodato_id} path with the comodato ID
+    response = client.delete(f"/comodatos/{comodato.id}")
+
+    # Check the response status code and content
+    assert response.status_code == 204
+
+    # Send a DELETE request to the /comodatos/{comodato_id} path with an invalid comodato ID
+    response = client.delete("/comodatos/999")
+
+    # Check the response status code and content
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Comodato not found"}
