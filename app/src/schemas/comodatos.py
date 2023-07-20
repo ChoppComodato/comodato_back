@@ -7,6 +7,7 @@ positivos = conint(ge=0)
 
 
 class ComodatoCreate(BaseModel):
+    # cliente_id: int
     barril_7_8_9_litros: Optional[positivos] = None
     barril_10_12_litros: Optional[positivos] = None
     barril_18_litros: Optional[positivos] = None
