@@ -4,7 +4,7 @@ from app.src.schemas import clientes
 from app.database import models
 
 
-def test_get_all_clientes(client):
+def test_read_all_clientes(client):
     "Test del schema ClienteOut"
     res = client.get("/clientes/")
 
@@ -35,7 +35,7 @@ def test_post_cliente(client):
     assert response.status_code == 201
 
 
-def test_read_one_cliente(client, session):
+def test_get_one_cliente(client, session):
 
     # Create a test cliente
     test_cliente = models.Cliente(
@@ -83,75 +83,6 @@ def test_read_one_cliente_not_exist(client):
     res = client.get(f"/clientes/88888")
     assert res.status_code == 404
 
-
-# def test_update_cliente(client, session):
-#     # Create a test client
-#     test_cliente = models.Cliente(
-#         dni=12345888,
-#         nombre="Test",
-#         apellido="Cliente2",
-#         direccion="Test 123",
-#         barrio="Test",
-#         localidad="Test",
-#         telefono="999999999",
-#         email="test@test.com",
-#         vehiculo="Test",
-#         patente="TEST123",
-#         fecha_cumple="01/01/2000"
-#     )
-#     session.add(test_cliente)
-#     session.commit()
-#     session.refresh(test_cliente)
-
-#     # Make a request to the update_cliente endpoint
-#     response = client.put(f"/clientes/{test_cliente.id}", json={
-#         "dni": 87654321,
-#         "nombre": "Nuevo",
-#         "apellido": "Cliente",
-#         "direccion": "Nuevo 123",
-#         "barrio": "Nuevo",
-#         "localidad": "Nuevo",
-#         "telefono": "0987654321",
-#         "email": "nuevo@test.com",
-#         "vehiculo": "Nuevo",
-#         "patente": "NUE123",
-#         "fecha_cumple": "02/02/2000"
-#     })
-
-#     print(response.status_code)
-#     # Check that the response status code is 200
-#     assert response.status_code == 200
-
-#     # Check that the response body matches the expected output
-#     assert response.json() == {
-#         "id": test_cliente.id,
-#         "dni": 87654321,
-#         "nombre": "Nuevo",
-#         "apellido": "Cliente",
-#         "direccion": "Nuevo 123",
-#         "barrio": "Nuevo",
-#         "localidad": "Nuevo",
-#         "telefono": "0987654321",
-#         "email": "nuevo@test.com",
-#         "vehiculo": "Nuevo",
-#         "patente": "NUE123",
-#         "fecha_cumple": "02/02/2000"
-#     }
-
-#     # Check that the cliente was updated in the database
-#     updated_cliente = session.query(models.Cliente).filter(
-#         models.Cliente.id == test_cliente.id).first()
-#     assert updated_cliente.dni == 87654321
-#     assert updated_cliente.nombre == "Nuevo"
-#     assert updated_cliente.apellido == "Cliente"
-#     assert updated_cliente.direccion == "Nuevo 123"
-#     assert updated_cliente.barrio == "Nuevo"
-#     assert updated_cliente.localidad == "Nuevo"
-#     assert updated_cliente.telefono == "0987654321"
-#     assert updated_cliente.email == "nuevo@test.com"
-#     assert updated_cliente.vehiculo == "Nuevo"
-#     assert updated_cliente.patente == "NUE123"
-#     assert updated_cliente.fecha_cumple.strftime("%d/%m/%Y") == "02/02/2000"
 
 def test_update_cliente(client, session):
 
@@ -259,7 +190,6 @@ def test_update_cliente_not_found(client, session):
 
     # Check that the response status code is 404
     assert response.status_code == 404
-
 
 
 def test_delete_cliente(client, session):
