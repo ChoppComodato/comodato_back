@@ -7,7 +7,7 @@ from ..utils import config
 from ..database import models
 from ..database.database import engine, get_db
 from .schemas.clientes import ClienteOut, ClienteCreate
-from .api import clientes, comodatos
+from .api import clientes, comodatos, recibos
 
 
 models.Base.metadata.create_all(bind=engine)
@@ -27,6 +27,7 @@ app.add_middleware(
 
 app.include_router(clientes.router)
 app.include_router(comodatos.router)
+app.include_router(recibos.router)
 
 
 @app.get("/")
