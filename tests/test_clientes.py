@@ -4,7 +4,7 @@ from app.src.schemas import clientes
 from app.database import models
 
 
-def test_get_all_clientes(client):
+def test_read_all_clientes(client):
     "Test del schema ClienteOut"
     res = client.get("/clientes/")
 
@@ -35,7 +35,7 @@ def test_post_cliente(client):
     assert response.status_code == 201
 
 
-def test_read_one_cliente(client, session):
+def test_get_one_cliente(client, session):
 
     # Create a test cliente
     test_cliente = models.Cliente(
