@@ -56,7 +56,7 @@ async def update_comodato(comodato_id: int, comodato_actualizado: ComodatoUpdate
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Comodato {comodato_id} no encontrado")
 
-    for field, value in comodato_actualizado.model_dump(exclude_unset=True).items():
+    for field, value in comodato_actualizado.model_dump(exclude_none=True).items():
         setattr(comodato, field, value)
 
     db.commit()
