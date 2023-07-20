@@ -32,7 +32,7 @@ class Comodato(Base):
     fecha_registro = Column(TIMESTAMP(timezone=True),
                             nullable=False, server_default=text('now()'))
     fecha_devolucion = Column(Date, nullable=True, server_default=None)
-    devuelto = Column(Boolean, nullable=False, default=True)
+    devuelto = Column(Boolean, nullable=False, default=False)
     barril_7_8_9_litros = Column(Integer, nullable=False, default=0)
     barril_10_12_litros = Column(Integer, nullable=False, default=0)
     barril_18_litros = Column(Integer, nullable=False, default=0)
