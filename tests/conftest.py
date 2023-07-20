@@ -81,6 +81,32 @@ def test_cliente(client):
     return response.json()
     
 
+@pytest.fixture()
+def body_comodato():
+    return {
+        "barril_7_8_9_litros": 1,
+        "barril_10_12_litros": 1,
+        "barril_18_litros": 1,
+        "barril_25_litros": 1,
+        "barril_30_litros": 1,
+        "barril_40_50_litros": 1,
+        "choppera_sin_barril": 1,
+        "reductor_presion": 1,
+        "tubo_CO2": 1,
+        "peso_tubo_CO2": 1,
+        "valvula_automatica": 1,
+        "cabezal_10_litros": 1,
+        "adicionales": "string",
+        "observaciones": "string",
+    }
+
+@pytest.fixture()
+def body_comodato_wrong():
+    return {
+        "barril_7_8_9_litros": -1
+    }
+
+
 
 # Fixture de crear usuario
 # Fixture de crear token
