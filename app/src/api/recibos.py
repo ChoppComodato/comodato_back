@@ -88,7 +88,7 @@ async def update_recibo(recibo_id: int, recibo_actualizado: ReciboUpdate, db: Se
 
 # Delete
 
-@router.delete("/{recibo_id}", response_model=ReciboOut)
+@router.delete("/{recibo_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_recibo(recibo_id: int, db: Session = Depends(get_db)):
     recibo = db.query(models.Recibo).filter(
         models.Recibo.id == recibo_id).first()
