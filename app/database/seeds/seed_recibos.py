@@ -25,7 +25,8 @@ def create_recibo():
 def update_recibo(id):
     # Send a PUT request to the /recibos path with the JSON data
     data = {
-        "monto_recibo": 2000
+        "cliente_id": 40,
+        "comodato_id": 5
     }
 
     response = requests.put(f"http://localhost:8000/recibos/{id}", json=data)
@@ -39,14 +40,49 @@ def update_recibo(id):
         print(response.json())
 
 
+def delete_recibo(id):
+    # Send a DELETE request to the /recibos path with the JSON data
+    response = requests.delete(f"http://localhost:8000/recibos/{id}")
 
-#TODO:
+    # Check the response status code and content
+    if response.status_code == 204:
+        print(f"Recibo deleted successfully!")
+    else:
+        print(f"Error deleting recibos: {response.status_code}")
 
+
+def get_all_recibos():
+    # Send a GET request to the /recibos path with the JSON data
+    response = requests.get(f"http://localhost:8000/recibos/")
+
+    # Check the response status code and content
+    if response.status_code == 200:
+        print(f"recibos retrieved successfully!")
+        print(response.json())
+    else:
+        print(f"Error retrieving recibos: {response.status_code}")
+
+
+def read_recibo(id):
+    # Send a GET request to the /recibos path with the JSON data
+    response = requests.get(f"http://localhost:8000/recibos/{id}")
+
+    # Check the response status code and content
+    if response.status_code == 200:
+        print(f"recibos retrieved successfully!")
+        print(response.json())
+    else:
+        print(f"Error retrieving recibos: {response.status_code}")
 
 
 def main():
     # create_recibo()
-    update_recibo(5)
+    # update_recibo(5)
+    # delete_recibo(3)
+    get_all_recibos()
+    print("="*150)
+    read_recibo(1)
 
 
-main()
+if __name__ == "__main__":
+    main()
