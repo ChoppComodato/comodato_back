@@ -15,10 +15,15 @@ class ReciboCreate(ReciboBase):
     pass
 
 
+class ReciboUpdate(BaseModel):
+    monto_recibo: Optional[int] = None
+    cliente_id: Optional[int] = None
+    comodato_id: Optional[int] = None
+
+
 class ReciboOut(ReciboBase):
     model_config = ConfigDict(from_attributes=True)
     id: int
     fecha_registro: datetime
     cliente: Cliente
     comodato: ComodatoOut
-
