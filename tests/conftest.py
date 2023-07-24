@@ -75,11 +75,46 @@ def test_cliente(client):
 
     # enviar request con la data
     response = client.post("/clientes/", json=cliente_data)
-    # assertear el status code el response
     assert response.status_code == 201
+    return response.json()
 
-    # definir el cliente en formato json
-    # retornar el cliente
+
+@pytest.fixture()
+def test_comodato(client):
+    # definir comodato data
+    comodato_data = {
+        "barril_7_8_9_litros": 1,
+        "barril_10_12_litros": 1,
+        "barril_18_litros": 1,
+        "barril_25_litros": 1,
+        "barril_30_litros": 1,
+        "barril_40_50_litros": 1,
+        "choppera_sin_barril": 1,
+        "reductor_presion": 1,
+        "tubo_CO2": 1,
+        "peso_tubo_CO2": 1,
+        "valvula_automatica": 1,
+        "cabezal_10_litros": 1,
+        "adicionales": "string",
+        "observaciones": "string",
+    }
+
+    # enviar request con la data
+    response = client.post("/comodatos/", json=comodato_data)
+    assert response.status_code == 201
+    return response.json()
+
+
+@pytest.fixture()
+def test_recibo(client, test_cliente, test_comodato):
+    recibo_data = {
+        "cliente_id": test_cliente["id"],
+        "comodato_id": test_comodato["id"],
+        "monto_recibo": 1000
+    }
+
+    response = client.post("/recibos/", json=recibo_data)
+    assert response.status_code == 201
     return response.json()
 
 
