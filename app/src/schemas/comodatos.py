@@ -7,7 +7,7 @@ positivos = conint(ge=0)
 
 
 class ComodatoCreate(BaseModel):
-    # cliente_id: int
+    cliente_id: int
     barril_7_8_9_litros: Optional[positivos] = None
     barril_10_12_litros: Optional[positivos] = None
     barril_18_litros: Optional[positivos] = None
@@ -47,6 +47,7 @@ class ComodatoOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    cliente_id: int
     fecha_registro: datetime
     fecha_devolucion: Optional[datetime] = None
     devuelto: bool

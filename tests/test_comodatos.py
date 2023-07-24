@@ -3,19 +3,21 @@ from app.database import models
 import json
 
 
-def test_create_comodato(client, body_comodato):
+def test_create_comodato(client, body_comodato, test_cliente):
 
     # Create a ComodatoCreate request body
     request_body = body_comodato
+    request_body["cliente_id"] = test_cliente.get("id")
     # Send a POST request to the /comodatos path with the request body
     response = client.post("/comodatos", json=request_body)
     # Check the response status code and content
     assert response.status_code == 201
 
 
-def test_create_comodato_invalid(client, body_comodato_wrong):
+def test_create_comodato_invalid(client, body_comodato_wrong, test_cliente):
     # Create a ComodatoCreate request body
     request_body = body_comodato_wrong
+    request_body["cliente_id"] = test_cliente.get("id")
     # Send a POST request to the /comodatos path with the request body
     response = client.post("/comodatos", json=request_body)
     # Check the response status code and content
@@ -46,7 +48,9 @@ def test_read_all_comodatos(client):
     assert res.status_code == 200
 
 
-def test_get_one_comodato(client, session, body_comodato):
+def test_get_one_comodato(client, session, body_comodato, test_cliente):
+    # Create a new comodato in the database
+    body_comodato["cliente_id"] = test_cliente.get("id")
     test_comodato = models.Comodato(**body_comodato)
 
     session.add(test_comodato)
@@ -61,9 +65,10 @@ def test_get_one_comodato(client, session, body_comodato):
     # assert response.json() == expected.model_dump()
 
 
-def test_update_comodato(client, session):
+def test_update_comodato(client, session, test_cliente):
     #  1) creamos un registro de comodato y lo actualizamos
     test_comodato = models.Comodato(
+        cliente_id=test_cliente.get("id"),
         barril_7_8_9_litros=1,
         barril_10_12_litros=1
     )
