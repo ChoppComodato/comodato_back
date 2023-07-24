@@ -15,6 +15,15 @@ router = APIRouter(
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=ComodatoOut)
 async def create_comodato(comodato: ComodatoCreate, db: Session = Depends(get_db)):
+    # verificar si comodato.cliente_id existe en la tabla clientes
+    db_cliente = db.query(models.Cliente).filter(
+        models.Cliente.id == comodato.cliente_id).first()
+
+    if not db_cliente:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Cliente {comodato.cliente_id} no encontrado")
+
+    # crear comodato
     comodato_nuevo = models.Comodato(**comodato.model_dump())
 
     db.add(comodato_nuevo)
