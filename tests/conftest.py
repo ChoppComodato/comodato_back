@@ -80,7 +80,7 @@ def test_cliente(client):
 
 
 @pytest.fixture()
-def test_comodato(client):
+def test_comodato(client, test_cliente):
     # definir comodato data
     comodato_data = {
         "barril_7_8_9_litros": 1,
@@ -98,6 +98,7 @@ def test_comodato(client):
         "adicionales": "string",
         "observaciones": "string",
     }
+    comodato_data["cliente_id"] = test_cliente["id"]
 
     # enviar request con la data
     response = client.post("/comodatos/", json=comodato_data)
