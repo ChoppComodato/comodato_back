@@ -1,0 +1,359 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "ChoppComodato",
+    "dateExported": "2023-07-25T16:38:01.254Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "cf3471a5-b064-4775-bb64-22add860a9ac",
+            "name": "clientes",
+            "containerId": "",
+            "created": "2023-07-24T16:49:04.804Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "92b9aa5e-53ab-4ee0-923d-ab9cdb7bf776",
+            "name": "comodatos",
+            "containerId": "",
+            "created": "2023-07-24T16:49:16.093Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "ff9fe5e9-630f-4171-93af-6453c6f5c829",
+            "name": "recibos",
+            "containerId": "",
+            "created": "2023-07-24T16:49:23.989Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "921505b1-f694-4d8c-abf3-e2d33c75c876",
+            "name": "authentication",
+            "containerId": "",
+            "created": "2023-07-25T16:24:57.687Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "557f95d8-b634-4528-aad9-33f5772b843d",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "cf3471a5-b064-4775-bb64-22add860a9ac",
+            "name": "obtener_clientes_todos",
+            "url": "localhost:8000/clientes/",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-07-24T16:50:34.339Z",
+            "modified": "2023-07-24T16:50:47.103Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "46bfc90d-cafd-4b7f-924b-55942da9ae26",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "cf3471a5-b064-4775-bb64-22add860a9ac",
+            "name": "leer_cliente_por_id",
+            "url": "localhost:8000/clientes/5",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-07-24T16:51:11.267Z",
+            "modified": "2023-07-24T16:51:16.458Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "753bb1c9-aff7-4f6e-816a-3891f5e4144f",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "cf3471a5-b064-4775-bb64-22add860a9ac",
+            "name": "leer_cliente_por_dni",
+            "url": "localhost:8000/clientes/dni/?cliente_dni=74886285",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-07-24T17:00:24.706Z",
+            "modified": "2023-07-24T17:00:43.293Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "cliente_dni",
+                    "value": "74886285",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "862dbcd9-c532-4130-b98a-82355f7c3d16",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "cf3471a5-b064-4775-bb64-22add860a9ac",
+            "name": "crear_cliente",
+            "url": "localhost:8000/clientes/",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-07-24T17:01:02.490Z",
+            "modified": "2023-07-24T17:04:51.739Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\"dni\":35678678,\n\"nombre\":\"Santino\",\n\"apellido\":\"Peralta\",\n\"direccion\":\"Ramisol 355\",\n\"barrio\":\"Los Juarez\",\n\"localidad\":\"Chiwawa\",\n\"telefono\":\"351-6554879\",\n\"email\":\"speralta@testing.com\",\n\"vehiculo\":\"Ford Ranger 2018\",\n\"patente\":\"AA567BB\",\n\"fecha_cumple\":\"30/05/1990\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fab00be7-ca90-44d9-a34e-885d60c74ee7",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "cf3471a5-b064-4775-bb64-22add860a9ac",
+            "name": "update_cliente",
+            "url": "localhost:8000/clientes/104",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2023-07-24T17:05:47.725Z",
+            "modified": "2023-07-24T17:07:06.376Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"nombre\":\"Santino León\"\r\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d3bb6d74-d394-453a-bea3-bcae458265e6",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "cf3471a5-b064-4775-bb64-22add860a9ac",
+            "name": "eliminar_cliente",
+            "url": "localhost:8000/clientes/104",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-07-24T17:07:40.273Z",
+            "modified": "2023-07-24T17:07:50.839Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "93d8aa45-acd1-47d6-8410-4020fd330e9b",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "92b9aa5e-53ab-4ee0-923d-ab9cdb7bf776",
+            "name": "obtener_comodatos_todos",
+            "url": "localhost:8000/comodatos/",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-07-24T17:08:23.369Z",
+            "modified": "2023-07-24T17:08:33.731Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "adaa2914-699a-45fb-9143-b94922007f7f",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "92b9aa5e-53ab-4ee0-923d-ab9cdb7bf776",
+            "name": "leer_comodato_por_id",
+            "url": "localhost:8000/comodatos/1",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-07-24T17:09:45.946Z",
+            "modified": "2023-07-24T17:09:52.277Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f3bfddeb-d6ed-44c9-8e2d-18b15889ed53",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "92b9aa5e-53ab-4ee0-923d-ab9cdb7bf776",
+            "name": "crear_comodato",
+            "url": "localhost:8000/comodatos/",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2023-07-24T17:10:13.978Z",
+            "modified": "2023-07-24T17:10:58.125Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cliente_id\":100,\n  \"barril_7_8_9_litros\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "865afb27-d273-499a-adc4-9f6e80f1054c",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "92b9aa5e-53ab-4ee0-923d-ab9cdb7bf776",
+            "name": "update_comodato",
+            "url": "localhost:8000/comodatos/13",
+            "method": "PUT",
+            "sortNum": 110000,
+            "created": "2023-07-24T17:11:27.649Z",
+            "modified": "2023-07-24T17:11:51.066Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "bcb952b5-5ef5-43d8-9094-7f5bdd58f9b3",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "92b9aa5e-53ab-4ee0-923d-ab9cdb7bf776",
+            "name": "eliminar_comodato",
+            "url": "localhost:8000/comodatos/13",
+            "method": "DELETE",
+            "sortNum": 120000,
+            "created": "2023-07-24T17:12:22.673Z",
+            "modified": "2023-07-24T17:12:34.844Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2387ee8a-ead6-469b-87e7-98b86600e5e1",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "ff9fe5e9-630f-4171-93af-6453c6f5c829",
+            "name": "obtener_recibos_todos",
+            "url": "localhost:8000/recibos",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2023-07-24T17:12:55.810Z",
+            "modified": "2023-07-24T17:13:06.346Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b2212ab6-f2f3-4181-96a4-36a391060bfe",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "ff9fe5e9-630f-4171-93af-6453c6f5c829",
+            "name": "leer_recibo_por_id",
+            "url": "localhost:8000/recibos/2",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2023-07-24T17:13:34.170Z",
+            "modified": "2023-07-24T17:13:43.938Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "833099cd-89ad-4279-b96c-5c95a9f762a7",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "ff9fe5e9-630f-4171-93af-6453c6f5c829",
+            "name": "crear_recibo",
+            "url": "localhost:8000/recibos",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2023-07-24T17:14:09.921Z",
+            "modified": "2023-07-24T17:15:37.218Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"monto_recibo\":2000,\n  \"cliente_id\": 41,\n  \"comodato_id\":1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f4161972-397b-47f3-a32d-3f5778706c30",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "ff9fe5e9-630f-4171-93af-6453c6f5c829",
+            "name": "update_recibo",
+            "url": "localhost:8000/recibos/9",
+            "method": "PUT",
+            "sortNum": 160000,
+            "created": "2023-07-24T17:16:03.721Z",
+            "modified": "2023-07-24T17:16:41.450Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"monto_recibo\":2001\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b7064069-7ef7-4748-8c9f-b8873eb3c15f",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "ff9fe5e9-630f-4171-93af-6453c6f5c829",
+            "name": "eliminar_recibo",
+            "url": "localhost:8000/recibos/9",
+            "method": "DELETE",
+            "sortNum": 170000,
+            "created": "2023-07-24T17:16:57.313Z",
+            "modified": "2023-07-24T17:17:04.097Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6cb5d990-f9c4-4526-ac35-6226e557dda3",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "921505b1-f694-4d8c-abf3-e2d33c75c876",
+            "name": "create_user",
+            "url": "localhost:8000/users",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2023-07-25T16:25:10.870Z",
+            "modified": "2023-07-25T16:28:07.389Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"agustin_1\",\n  \"password\": \"password123\",\n  \"email\": \"agustin3@gmail.com\",\n  \"phone\":\"3516109696\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ad43a7b7-2719-47e8-b0d6-052b1a082914",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "921505b1-f694-4d8c-abf3-e2d33c75c876",
+            "name": "get_user_by_id",
+            "url": "localhost:8000/users/1",
+            "method": "GET",
+            "sortNum": 190000,
+            "created": "2023-07-25T16:29:40.142Z",
+            "modified": "2023-07-25T16:29:49.749Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3b89845f-7d06-4536-b2eb-f8dc3967040d",
+            "colId": "6848addf-5b92-4828-a9a5-f4c9e76e2737",
+            "containerId": "921505b1-f694-4d8c-abf3-e2d33c75c876",
+            "name": "login_user",
+            "url": "localhost:8000/login",
+            "method": "POST",
+            "sortNum": 200000,
+            "created": "2023-07-25T16:30:15.287Z",
+            "modified": "2023-07-25T16:36:08.539Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "username",
+                        "value": "agustin3@gmail.com"
+                    },
+                    {
+                        "name": "password",
+                        "value": "password123"
+                    }
+                ]
+            },
+            "tests": []
+        }
+    ]
+}
