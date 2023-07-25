@@ -59,9 +59,22 @@ class Recibo(Base):
     monto_recibo = Column(Integer, nullable=False)
     fecha_registro = Column(TIMESTAMP(timezone=True),
                             nullable=False, server_default=text('now()'))
-    cliente_id = Column(Integer, ForeignKey("clientes.id", ondelete="CASCADE"), nullable=False)
+    cliente_id = Column(Integer, ForeignKey(
+        "clientes.id", ondelete="CASCADE"), nullable=False)
     cliente = relationship("Cliente")
-    comodato_id = Column(Integer, ForeignKey("comodatos.id", ondelete="CASCADE"), nullable=False)
+    comodato_id = Column(Integer, ForeignKey(
+        "comodatos.id", ondelete="CASCADE"), nullable=False)
     comodato = relationship("Comodato")
 
-    
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, nullable=False)
+    username = Column(String, nullable=False, unique=True)
+    password = Column(String, nullable=False)
+    email = Column(String, nullable=False, unique=True)
+    phone = Column(String, nullable=False, unique=True)
+    created_at = Column(TIMESTAMP(timezone=True),
+                        nullable=False, server_default=text('now()'))
+    updated_at = Column(TIMESTAMP(timezone=True),
+                        nullable=False, server_default=text('now()'))
