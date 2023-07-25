@@ -22,7 +22,7 @@ def create_user(user: UserCreate, db=Depends(get_db)):
 
     hashed_psw = hash_password(user.password)
     user.password = hashed_psw
-    db_user = models.User(**user.dict())
+    db_user = models.User(**user.model_dump())
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
