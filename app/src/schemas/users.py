@@ -2,7 +2,7 @@ from typing import Optional
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, EmailStr, constr
 
-r_phone = r"^\d{15}$"
+r_phone = r"^\d{10,15}$"
 
 class UserOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
