@@ -35,12 +35,25 @@ async def get_clientes(skip: int = 0, limit: int = 100, db: Session = Depends(ge
     return clientes
 
 
-# Read one - TODO: usar el DNI para hacer el search
+# Read one -
 
 @router.get("/{cliente_id}", response_model=ClienteOut)
 async def read_cliente(cliente_id: int, db: Session = Depends(get_db)):
     db_cliente = db.query(models.Cliente).filter(
         models.Cliente.id == cliente_id).first()
+    if not db_cliente:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Cliente not found")
+    db_cliente.fecha_cumple = db_cliente.fecha_cumple.strftime("%d/%m/%Y")
+    return db_cliente
+
+
+# Read one - by DNI
+
+@router.get("/dni/", response_model=ClienteOut)
+async def read_cliente_by_dni(cliente_dni: int, db: Session = Depends(get_db)):
+    db_cliente = db.query(models.Cliente).filter(
+        models.Cliente.dni == cliente_dni).first()
     if not db_cliente:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Cliente not found")

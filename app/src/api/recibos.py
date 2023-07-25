@@ -32,6 +32,10 @@ async def create_recibo(recibo: ReciboCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Comodato {comodato_id} no encontrado")
 
+    if comodato.cliente_id != cliente_id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"El comodato {comodato_id} no pertenece al cliente {cliente_id}")
+
     recibo_nuevo = recibo.model_dump()
 
     recibo_nuevo["cliente"] = cliente
