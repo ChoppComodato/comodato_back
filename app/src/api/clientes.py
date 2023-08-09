@@ -15,8 +15,16 @@ router = APIRouter(
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=ClienteOut)
 async def create_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
-    cliente_nuevo = models.Cliente(**cliente.model_dump())
+    cliente_dni = cliente.model_dump()["dni"]
 
+    db_cliente = db.query(models.Cliente).filter(
+        models.Cliente.dni == cliente_dni).first()
+    if db_cliente:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Cliente con DNI {cliente_dni} ya existe")
+
+    cliente_nuevo = models.Cliente(**cliente.model_dump())
     db.add(cliente_nuevo)
     db.commit()
     db.refresh(cliente_nuevo)
